@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="Growing.designsystem" target="17" />
+      <module name="Growing.libraries.snackbar" target="17" />
+      <module name="Growing.snackbar" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
