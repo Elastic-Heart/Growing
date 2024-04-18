@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Growing"
+
 include(":app")
-include(":Second")
-include(":third")
+include(":feature:Second")
+include(":feature:third")

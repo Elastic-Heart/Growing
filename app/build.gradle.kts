@@ -41,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinComposeCompiler.get()
     }
     packaging {
         resources {
@@ -70,7 +70,7 @@ dependencies {
         debugImplementation(androidx.compose.ui.tooling)
         debugImplementation(androidx.compose.ui.test.manifest)
 
-        implementation(project(":Second"))
-        implementation(project(":third"))
+        implementation(project(":feature:Second"))
+        implementation(project(":feature:third"))
     }
 }
