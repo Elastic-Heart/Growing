@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,12 +31,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.martini.growing.second.SecondHome
 import com.martini.growing.third.ThirdHome
 import com.martini.growing.ui.theme.GrowingTheme
+import com.martini.snackbar.GrowingSnackBarHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,20 +83,29 @@ fun GrowingNavigation() {
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
+    mainViewModel: MainActivityViewModel = viewModel(),
     onGoToSecondClicked: () -> Unit,
     onGoToThirdClicked: () -> Unit
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    Scaffold(
+        snackbarHost = { GrowingSnackBarHost() }
     ) {
-        Button(onClick = { onGoToSecondClicked() }) {
-            Text(text = "Second screen")
-        }
-        Button(onClick = { onGoToThirdClicked() }) {
-            Text(text = "Third screen")
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Button(onClick = { onGoToSecondClicked() }) {
+                Text(text = "Second screen")
+            }
+            Button(onClick = { onGoToThirdClicked() }) {
+                Text(text = "Third screen")
+            }
+            Button(onClick = mainViewModel::showSnackBar) {
+                Text(text = "Show snackbar")
+            }
         }
     }
 }

@@ -10,3 +10,7 @@ plugins {
 android {
     namespace = "com.martini.growing.second"
 }
+
+dependencies {
+    implementation(project(":libraries:snackbar"))
+}

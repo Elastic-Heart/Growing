@@ -25,6 +25,8 @@ class ComposePlugin : Plugin<Project> {
             implementation(libs.findLibrary("androidx-compose-ui-graphics").get())
             implementation(libs.findLibrary("androidx-compose-ui-tooling-preview").get())
             implementation(libs.findLibrary("androidx-compose-material").get())
+            implementation(libs.findLibrary("androidx-lifecycle-viewmodel-compose").get())
+            implementation(libs.findLibrary("androidx-lifecycle-runtime-compose").get())
             androidTestImplementation(composeBom)
             androidTestImplementation(libs.findLibrary("androidx-compose-ui-test-junit4").get())
             debugImplementation(libs.findLibrary("androidx-compose-ui-tooling").get())
