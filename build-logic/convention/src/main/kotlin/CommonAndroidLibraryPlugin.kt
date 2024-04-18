@@ -9,6 +9,9 @@ class CommonAndroidLibraryPlugin : Plugin<Project> {
         dependencies {
             implementation(libs.findLibrary("androidx-ktx").get())
             implementation(libs.findLibrary("androidx-lifecycle-runtime-ktx").get())
+            testImplementation(libs.findLibrary("junit").get())
+            testImplementation(libs.findLibrary("androidx-test-core").get())
+            testImplementation(libs.findLibrary("io-mockk").get())
             androidTestImplementation(libs.findLibrary("androidx-test-junit").get())
             androidTestImplementation(libs.findLibrary("androidx-test-espresso").get())
         }
