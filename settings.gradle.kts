@@ -19,3 +19,4 @@ rootProject.name = "Growing"
 include(":app")
 include(":feature:Second")
 include(":feature:third")
+include(":libraries:designsystem")

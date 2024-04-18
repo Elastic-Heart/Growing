@@ -72,5 +72,6 @@ dependencies {
 
         implementation(project(":feature:Second"))
         implementation(project(":feature:third"))
+        implementation(project(":libraries:designsystem"))
     }
 }
