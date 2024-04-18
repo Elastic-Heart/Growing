@@ -98,9 +98,13 @@ private fun GrowingSnackBarPreview() {
                     override val withDismissAction = false
                 }
 
-            override fun dismiss() {}
+            override fun dismiss() {
+                //Empty body since this a preview
+            }
 
-            override fun performAction() {}
+            override fun performAction() {
+                //Empty body since this a preview
+            }
         }
     )
 }
