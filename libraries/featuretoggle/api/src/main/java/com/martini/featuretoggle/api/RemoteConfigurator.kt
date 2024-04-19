@@ -1,5 +1,5 @@
 package com.martini.featuretoggle.api
 
-interface RemoteConfigurator {
+fun interface RemoteConfigurator {
     suspend operator fun invoke()
 }
