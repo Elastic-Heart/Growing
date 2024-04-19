@@ -19,6 +19,8 @@ koin-bom = "3.5.6"
 lifecycleViewModelCompose = "2.7.0"
 androidXTestVersion = "1.5.0"
 mockkVersion = "1.13.3"
+googleServicesVersion = "4.4.1"
+firebaseBom = "32.8.1"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -45,9 +47,12 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidXTestVersion" }
 io-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-config = { module = "com.google.firebase:firebase-config" }
 
 #Dependencies for buildSrc
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -60,6 +65,12 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 
+#Firebase/Google
+com-google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion"}
+
 #Custom plugins
 compose-library = { id = "compose.plugin", version = "unspecified" }
 common-android-library = { id = "common.android.library.plugin", version = "unspecified" }
+
+[bundles]
+koin = ["koin-bom", "koin-android", "koin-core", "koin-compose"]

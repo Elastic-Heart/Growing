@@ -13,6 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Load Google Services json
+      env:
+        DATA: ${{secrets.GOOGLE_SERVICES_JSON}}
+      run: echo $DATA | base64 -di > app/google-services.json
   
     - name: Cache Gradle wrapper
       uses: actions/cache@v4

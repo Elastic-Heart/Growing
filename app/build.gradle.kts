@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.com.google.gms.services)
 }
 
 android {
@@ -62,6 +63,7 @@ dependencies {
         implementation(androidx.compose.material)
         implementation(androidx.navigation.compose)
         implementation(androidx.lifecycle.runtime.compose)
+        implementation(libs.bundles.koin)
         testImplementation(junit)
         androidTestImplementation(androidx.test.junit)
         androidTestImplementation(androidx.test.espresso)
@@ -70,6 +72,8 @@ dependencies {
         debugImplementation(androidx.compose.ui.tooling)
         debugImplementation(androidx.compose.ui.test.manifest)
 
+        implementation(project(":libraries:featuretoggle:api"))
+        implementation(project(":libraries:featuretoggle:impl"))
         implementation(project(":feature:Second"))
         implementation(project(":feature:third"))
         implementation(project(":libraries:designsystem"))

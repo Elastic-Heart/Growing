@@ -49,9 +49,20 @@ internal fun Project.configureDefaultConfig() {
     }
 }
 
+internal fun Project.configureRelease() {
+    extensions.getByType(LibraryExtension::class.java).apply {
+        buildTypes {
+            release {
+                isMinifyEnabled = true
+            }
+        }
+    }
+}
+
 internal fun Project.configureAndroidLibrary() {
     configureJavaVersion()
     configureKotlinVersion()
     configurePackaging()
+    configureRelease()
     configureDefaultConfig()
 }
