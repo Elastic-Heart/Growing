@@ -5,5 +5,6 @@ plugins {
         alias(android.library) apply false
         alias(kotlin.android) apply false
         alias(com.google.gms.services) apply false
+        alias(com.google.firebase.crashlytics) apply false
     }
 }
