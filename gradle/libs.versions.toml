@@ -21,6 +21,7 @@ androidXTestVersion = "1.5.0"
 mockkVersion = "1.13.3"
 googleServicesVersion = "4.4.1"
 firebaseBom = "32.8.1"
+crashlyticsPlugin = "2.9.9"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -53,6 +54,7 @@ androidx-test-core = { module = "androidx.test:core", version.ref = "androidXTes
 io-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 
 #Dependencies for buildSrc
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -67,6 +69,7 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 
 #Firebase/Google
 com-google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion"}
+com-google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyticsPlugin" }
 
 #Custom plugins
 compose-library = { id = "compose.plugin", version = "unspecified" }
