@@ -10,3 +10,7 @@ plugins {
 android {
     namespace = "com.martini.growing.third"
 }
+
+dependencies {
+    implementation(project(":libraries:designsystem"))
+}

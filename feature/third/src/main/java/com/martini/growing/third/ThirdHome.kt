@@ -6,6 +6,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.martini.designsystem.utils.UiText
+import com.martini.designsystem.utils.text
 
 @Composable
 fun ThirdHome() {
@@ -13,7 +15,7 @@ fun ThirdHome() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-
-        Text(text = "Third home")
+        val someText = UiText.Resource(R.string.app_name).text
+        Text(text = "$someText: Third home")
     }
 }
