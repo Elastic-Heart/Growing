@@ -4,5 +4,6 @@ plugins {
         alias(android.application) apply false
         alias(android.library) apply false
         alias(kotlin.android) apply false
+        alias(com.google.gms.services) apply false
     }
 }

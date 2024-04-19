@@ -3,10 +3,12 @@ package com.martini.growing
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -14,10 +16,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -31,14 +35,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.martini.growing.second.SecondHome
+import com.martini.growing.state.MainUiState
 import com.martini.growing.third.ThirdHome
 import com.martini.growing.ui.theme.GrowingTheme
 import com.martini.snackbar.GrowingSnackBarHost
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +63,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GrowingNavigation() {
+fun GrowingNavigation(
+    mainViewModel: MainActivityViewModel = koinViewModel()
+) {
+    val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
+
     val navController = rememberNavController()
 
     fun onGoToSecondClicked() {
@@ -68,25 +78,38 @@ fun GrowingNavigation() {
         navController.navigate("ThirdHome")
     }
 
-    NavHost(navController = navController, startDestination = "Home") {
-        composable("Home") {
-            Home(
-                onGoToSecondClicked = ::onGoToSecondClicked,
-                onGoToThirdClicked = ::onGoToThirdClicked
-            )
+    AnimatedVisibility(visible = uiState is MainUiState.Loading) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
         }
-        composable("SecondHome") { SecondHome() }
-        composable("ThirdHome") { ThirdHome() }
+    }
+
+    AnimatedVisibility(visible = uiState !is MainUiState.Loading) {
+        NavHost(navController = navController, startDestination = "Home") {
+            composable("Home") {
+                Home(
+                    onGoToSecondClicked = ::onGoToSecondClicked,
+                    onGoToThirdClicked = ::onGoToThirdClicked
+                )
+            }
+            composable("SecondHome") { SecondHome() }
+            composable("ThirdHome") { ThirdHome() }
+        }
     }
 }
 
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
-    mainViewModel: MainActivityViewModel = viewModel(),
+    mainViewModel: MainActivityViewModel = koinViewModel(),
     onGoToSecondClicked: () -> Unit,
     onGoToThirdClicked: () -> Unit
 ) {
+    val showSnackBarEnabled by mainViewModel.showSnackBarEnabled.collectAsStateWithLifecycle()
+
     Scaffold(
         snackbarHost = { GrowingSnackBarHost() }
     ) {
@@ -103,8 +126,10 @@ fun Home(
             Button(onClick = { onGoToThirdClicked() }) {
                 Text(text = "Third screen")
             }
-            Button(onClick = mainViewModel::showSnackBar) {
-                Text(text = "Show snackbar")
+            AnimatedVisibility(visible = showSnackBarEnabled) {
+                TextButton(onClick = mainViewModel::showSnackBar) {
+                    Text(text = "Show snackbar")
+                }
             }
         }
     }
