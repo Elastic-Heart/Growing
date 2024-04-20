@@ -5,6 +5,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.martini.featuretoggle.api.Feature
 import com.martini.featuretoggle.api.RemoteConfigurator
+import com.martini.featuretoggle.impl.BuildConfig
 
 class FirebaseRemoteConfigurator(
     private val config: FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()

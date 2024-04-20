@@ -2,11 +2,15 @@ import BuildLogicConstants.COMPILE_SDK
 import BuildLogicConstants.JAVA_VERSION
 import BuildLogicConstants.MINIMUM_SDK
 import com.android.build.api.dsl.LibraryExtension
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal val Project.libs
@@ -54,6 +58,31 @@ internal fun Project.configureDefaultConfig() {
     }
 }
 
+internal fun Project.configurePublishing() {
+    extensions.getByType(PublishingExtension::class.java).apply {
+        publications {
+
+            val libraryName = project.displayName.split(" ")[1]
+            val joinedLibraryName = libraryName
+                .replace("'", "")
+                .replace(":", "")
+
+            register<MavenPublication>("aar") {
+                groupId = "com.martini.growing"
+                artifactId = joinedLibraryName
+                version = "1.0"
+            }
+        }
+        repositories {
+            maven {
+                name = "local"
+                url = uri("${project.rootDir}/localMavenRepository")
+            }
+            tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
+        }
+    }
+}
+
 internal fun Project.configureRelease() {
     extensions.getByType(LibraryExtension::class.java).apply {
         buildTypes {
@@ -70,4 +99,5 @@ internal fun Project.configureAndroidLibrary() {
     configurePackaging()
     configureRelease()
     configureDefaultConfig()
+    configurePublishing()
 }

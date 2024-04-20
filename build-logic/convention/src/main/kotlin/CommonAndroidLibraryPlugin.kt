@@ -4,6 +4,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 class CommonAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
+        pluginManager.apply("maven-publish")
         configureAndroidLibrary()
 
         dependencies {

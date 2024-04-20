@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.martini.featuretoggle"
+    namespace = "com.martini.featuretoggle.impl"
 
     buildFeatures {
         buildConfig = true
