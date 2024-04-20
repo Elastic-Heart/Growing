@@ -28,7 +28,11 @@ class MainActivityViewModel(
 
     val showSnackBarEnabled = featureToggleChecker
         .observe(Feature.HOME_SNACKBAR_ENABLED)
-        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = featureToggleChecker(Feature.HOME_SNACKBAR_ENABLED)
+        )
 
     init {
         fetchRemoteConfig()

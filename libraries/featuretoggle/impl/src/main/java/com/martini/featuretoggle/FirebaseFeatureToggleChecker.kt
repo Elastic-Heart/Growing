@@ -6,10 +6,12 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigException
 import com.martini.featuretoggle.api.Feature
 import com.martini.featuretoggle.api.FeatureToggleChecker
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class FirebaseFeatureToggleChecker(
@@ -26,7 +28,7 @@ class FirebaseFeatureToggleChecker(
     }
 
     private fun observeConfigUpdate() = callbackFlow {
-        config.addOnConfigUpdateListener(object : ConfigUpdateListener {
+        val listener = config.addOnConfigUpdateListener(object : ConfigUpdateListener {
             override fun onUpdate(configUpdate: ConfigUpdate) {
                 config.activate().addOnCompleteListener {
                     trySend(configUpdate.updatedKeys)
@@ -34,11 +36,9 @@ class FirebaseFeatureToggleChecker(
             }
 
             override fun onError(error: FirebaseRemoteConfigException) {
-                close(error.cause)
+                cancel(message = "Error listening for config updates.", cause = error)
             }
         })
-        awaitClose {
-            //No cleanup needed
-        }
+        awaitClose { listener.remove() }
     }
 }
