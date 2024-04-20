@@ -5,14 +5,12 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,11 +43,8 @@ fun GrowingSnackBar(
 @Composable
 fun GrowingSnackBarHost(
     modifier: Modifier = Modifier,
-    hostState: SnackbarHostState = remember {
-        SnackbarHostState()
-    },
+    hostState: GrowingSnackBarHostState = rememberGrowingSnackbarHostState(),
     onDismissed: () -> Unit = {},
-    onAction: () -> Unit = {}
 ) {
     val snackBarViewModel: SnackBarViewModel = viewModel()
 
@@ -61,7 +56,7 @@ fun GrowingSnackBarHost(
 
     SnackbarHost(
         modifier = modifier,
-        hostState = hostState
+        hostState = hostState.hostState
     ) {
         GrowingSnackBar(data = it)
     }
@@ -76,7 +71,9 @@ fun GrowingSnackBarHost(
                 val result = hostState.showSnackbar(visuals)
                 when (result) {
                     SnackbarResult.Dismissed -> onDismissed()
-                    SnackbarResult.ActionPerformed -> onAction()
+                    SnackbarResult.ActionPerformed -> {
+                        //Not using actions
+                    }
                 }
             }
             snackBarViewModel.reset()
