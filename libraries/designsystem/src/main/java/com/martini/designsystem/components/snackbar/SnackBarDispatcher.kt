@@ -1,4 +1,4 @@
-package com.martini.snackbar
+package com.martini.designsystem.components.snackbar
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +12,7 @@ class SnackBarDispatcher private constructor(){
         }
     }
 
-    private val _state = MutableStateFlow<SnackBarAction>(SnackBarAction.None)
+    private val _state = MutableStateFlow<SnackBarAction>(SnackBarAction.Hide)
 
     val state = _state.asStateFlow()
 
@@ -21,6 +21,6 @@ class SnackBarDispatcher private constructor(){
     }
 
     fun reset() {
-        _state.update { SnackBarAction.None }
+        _state.update { SnackBarAction.Hide }
     }
 }

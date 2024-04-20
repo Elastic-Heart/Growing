@@ -1,4 +1,4 @@
-package com.martini.snackbar
+package com.martini.designsystem.components.snackbar
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Snackbar
@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.martini.designsystem.utils.text
 import kotlinx.coroutines.launch
 
 @Composable
@@ -54,7 +55,7 @@ fun GrowingSnackBarHost(
 
     val state by snackBarViewModel.state.collectAsStateWithLifecycle()
     val show = (state as? SnackBarAction.Show)?.message
-    val message = show?.message
+    val message = show?.message?.text
 
     val coroutineScope = rememberCoroutineScope()
 

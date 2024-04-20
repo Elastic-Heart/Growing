@@ -43,7 +43,7 @@ import com.martini.growing.second.SecondHome
 import com.martini.growing.state.MainUiState
 import com.martini.growing.third.ThirdHome
 import com.martini.growing.ui.theme.GrowingTheme
-import com.martini.snackbar.GrowingSnackBarHost
+import com.martini.designsystem.components.snackbar.GrowingSnackBarHost
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {

@@ -1,4 +1,4 @@
-package com.martini.snackbar
+package com.martini.designsystem.components.snackbar
 
 import androidx.lifecycle.ViewModel
 

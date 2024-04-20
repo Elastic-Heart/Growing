@@ -2,13 +2,14 @@ package com.martini.growing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.martini.designsystem.utils.UiText
 import com.martini.featuretoggle.api.Feature
 import com.martini.featuretoggle.api.FeatureToggleChecker
 import com.martini.featuretoggle.api.RemoteConfigurator
 import com.martini.growing.state.MainUiState
-import com.martini.snackbar.SnackBarDispatcher
-import com.martini.snackbar.SnackBarMessage
-import com.martini.snackbar.SnackBarType
+import com.martini.designsystem.components.snackbar.SnackBarDispatcher
+import com.martini.designsystem.components.snackbar.SnackBarMessage
+import com.martini.designsystem.components.snackbar.SnackBarType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,7 +40,12 @@ class MainActivityViewModel(
     }
 
     fun showSnackBar() {
-        dispatcher.invoke(MainActivityMessage())
+        dispatcher.invoke(
+            SnackBarMessage(
+                message = UiText.Text("Hello world!"),
+                type = SnackBarType.ERROR
+            )
+        )
     }
 
     private fun fetchRemoteConfig() {
@@ -50,8 +56,3 @@ class MainActivityViewModel(
         }
     }
 }
-
-data class MainActivityMessage(
-    override val id: Int = R.string.app_name,
-    override val type: SnackBarType = listOf(SnackBarType.SUCCESS, SnackBarType.ERROR).random()
-) : SnackBarMessage

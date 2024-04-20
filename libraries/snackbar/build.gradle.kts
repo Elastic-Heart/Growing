@@ -22,3 +22,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(project(":libraries:designsystem"))
+}

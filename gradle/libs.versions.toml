@@ -55,6 +55,7 @@ io-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 #Dependencies for buildSrc
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -77,3 +78,4 @@ common-android-library = { id = "common.android.library.plugin", version = "unsp
 
 [bundles]
 koin = ["koin-bom", "koin-android", "koin-core", "koin-compose"]
+firebase = ["firebase-bom", "firebase-analytics", "firebase-config", "firebase-crashlytics"]
