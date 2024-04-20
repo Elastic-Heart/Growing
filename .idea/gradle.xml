@@ -32,7 +32,6 @@
             <option value="$PROJECT_DIR$/libraries/featuretoggle" />
             <option value="$PROJECT_DIR$/libraries/featuretoggle/api" />
             <option value="$PROJECT_DIR$/libraries/featuretoggle/impl" />
-            <option value="$PROJECT_DIR$/libraries/snackbar" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

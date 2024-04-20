@@ -12,5 +12,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":libraries:snackbar"))
+    implementation(project(":libraries:designsystem"))
 }
