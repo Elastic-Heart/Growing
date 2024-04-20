@@ -39,6 +39,9 @@ misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 
+#// aar files
+localMavenRepository
+
 # Keystore files
 *.jks
 *.keystore

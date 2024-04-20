@@ -19,5 +19,9 @@ gradlePlugin {
             id = "common.android.library.plugin"
             implementationClass = "CommonAndroidLibraryPlugin"
         }
+        register("readPropertiesPlugin") {
+            id = "read.properties.plugin"
+            implementationClass = "ReadPropertiesPlugin"
+        }
     }
 }
