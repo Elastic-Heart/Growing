@@ -73,16 +73,15 @@ dependencies {
         androidTestImplementation(androidx.compose.ui.test.junit4)
         debugImplementation(androidx.compose.ui.tooling)
         debugImplementation(androidx.compose.ui.test.manifest)
-
-        implementation(project(":libraries:featuretoggle:api"))
-        implementation(project(":feature:Second"))
-        implementation(project(":feature:third"))
-        implementation(project(":libraries:designsystem"))
     }
 }
 
 commonAndroidLibrary {
     dependencies = mapOf(
-        ":libraries:featuretoggle:impl" to "1.0"
+        ":libraries:featuretoggle:impl" to "1.0",
+        ":libraries:featuretoggle:api" to "1.0",
+        ":feature:Second" to "1.0",
+        ":feature:third" to "1.0",
+        ":libraries:designsystem" to "1.0",
     )
 }

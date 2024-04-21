@@ -11,6 +11,8 @@ android {
     namespace = "com.martini.growing.second"
 }
 
-dependencies {
-    implementation(project(":libraries:designsystem"))
+commonAndroidLibrary {
+    dependencies = mapOf(
+        ":libraries:designsystem" to "1.0"
+    )
 }

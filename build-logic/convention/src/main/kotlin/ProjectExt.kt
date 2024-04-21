@@ -116,13 +116,15 @@ internal fun Project.applyProjectDependencies() {
         dependencies {
             for (dependencyMap in options.dependencies) {
 
-                val dependency = dependencyMap.key.libraryName
+                val dependency = dependencyMap.key
                 val dependencyVersion = dependencyMap.value
 
-                if (useAARForDevBuild && devModules.contains(dependency).not()) {
+                val isNotInDevMod = devModules.contains(dependencyMap.key).not()
+
+                if (useAARForDevBuild && isNotInDevMod) {
+                    val library = dependency.libraryName
                     val repoAndGroupId = "../$MAVEN_REPOSITORY_FOLDER/$PUBLISHING_FOLDER"
-                    val aarFile = files("$repoAndGroupId/$dependency/$dependencyVersion/$dependency-$dependencyVersion.aar")
-                    println("Michael Jackson: $aarFile")
+                    val aarFile = files("$repoAndGroupId/$library/$dependencyVersion/$library-$dependencyVersion.aar")
                     add("implementation", aarFile)
                 } else {
                     add("implementation", project(dependency))
