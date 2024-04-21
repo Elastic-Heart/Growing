@@ -1,31 +1,8 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.common.android.library)
     alias(libs.plugins.read.properties.plugin)
-    `maven-publish`
-}
-
-val readProperties = extensions.getByType(ReadPropertiesExtension::class.java)
-
-println("Michael Jackson: ${readProperties.useAARForDevBuild}")
-
-publishing {
-    publications {
-        register<MavenPublication>("aar") {
-            groupId = "io.townsq.app"
-            artifactId = project.name
-            version = "1.0"
-        }
-    }
-    repositories {
-        maven {
-            name = "local"
-            url = uri("${project.rootDir}/localMavenRepository")
-        }
-        tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
-    }
 }
 
 android {
