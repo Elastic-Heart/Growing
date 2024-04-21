@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.common.android.application)
     alias(libs.plugins.com.google.gms.services)
     alias(libs.plugins.com.google.firebase.crashlytics)
 }
@@ -65,6 +66,8 @@ dependencies {
         implementation(androidx.navigation.compose)
         implementation(androidx.lifecycle.runtime.compose)
         implementation(libs.bundles.koin)
+        implementation(platform(libs.firebase.bom))
+        implementation(libs.bundles.firebase)
         testImplementation(junit)
         androidTestImplementation(androidx.test.junit)
         androidTestImplementation(androidx.test.espresso)
@@ -72,11 +75,15 @@ dependencies {
         androidTestImplementation(androidx.compose.ui.test.junit4)
         debugImplementation(androidx.compose.ui.tooling)
         debugImplementation(androidx.compose.ui.test.manifest)
-
-        implementation(project(":libraries:featuretoggle:api"))
-        implementation(project(":libraries:featuretoggle:impl"))
-        implementation(project(":feature:Second"))
-        implementation(project(":feature:third"))
-        implementation(project(":libraries:designsystem"))
     }
+}
+
+commonAndroidLibrary {
+    dependencies = mapOf(
+        ":libraries:featuretoggle:impl" to "1.0",
+        ":libraries:featuretoggle:api" to "1.0",
+        ":feature:Second" to "1.0",
+        ":feature:third" to "1.0",
+        ":libraries:designsystem" to "1.0",
+    )
 }

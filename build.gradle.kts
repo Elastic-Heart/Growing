@@ -3,6 +3,7 @@ plugins {
     with(libs.plugins) {
         alias(android.application) apply false
         alias(common.android.library) apply false
+        alias(common.android.application) apply false
         alias(android.library) apply false
         alias(compose.library) apply false
         alias(kotlin.android) apply false
