@@ -80,4 +80,4 @@ read-properties-plugin = { id = "read.properties.plugin", version = "unspecified
 
 [bundles]
 koin = ["koin-bom", "koin-android", "koin-core", "koin-compose"]
-firebase = ["firebase-bom", "firebase-analytics", "firebase-config", "firebase-crashlytics"]
+firebase = ["firebase-analytics", "firebase-config", "firebase-crashlytics"]
