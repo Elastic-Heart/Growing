@@ -26,7 +26,11 @@ class FirebaseRemoteConfigurator(
         }
         config.setConfigSettingsAsync(settings).await()
         config.setDefaultsAsync(getDefaults())
-        config.fetchAndActivate().await()
+        try {
+            config.fetchAndActivate().await()
+        } catch (e: Exception) {
+            //No need to to do anything, there are default values already
+        }
     }
 
     private fun getDefaults(): Map<String, Boolean> {
