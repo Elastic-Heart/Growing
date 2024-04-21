@@ -1,6 +1,8 @@
 import BuildLogicConstants.COMPILE_SDK
 import BuildLogicConstants.JAVA_VERSION
+import BuildLogicConstants.MAVEN_REPOSITORY_FOLDER
 import BuildLogicConstants.MINIMUM_SDK
+import BuildLogicConstants.PUBLISHING_FOLDER
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Project
@@ -9,9 +11,12 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.File
+import java.util.Properties
 
 internal val Project.libs
     get() = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
@@ -58,27 +63,71 @@ internal fun Project.configureDefaultConfig() {
     }
 }
 
+internal val Project.libraryName
+    get() = displayName.split(" ")[1]
+        .replace("'", "")
+        .replace(":", "")
+
+internal val Project.localProperties: Properties
+    get() {
+        val propertiesFile = File(rootProject.projectDir, "local.properties")
+        if (propertiesFile.exists().not()) {
+            propertiesFile.createNewFile()
+        }
+        return Properties().apply {
+            load(propertiesFile.inputStream())
+        }
+    }
+
 internal fun Project.configurePublishing() {
-    extensions.getByType(PublishingExtension::class.java).apply {
-        publications {
+    val options = extensions.getByType(CommonAndroidLibraryExtension::class.java)
 
-            val libraryName = project.displayName.split(" ")[1]
-            val joinedLibraryName = libraryName
-                .replace("'", "")
-                .replace(":", "")
+    afterEvaluate {
+        extensions.getByType(PublishingExtension::class.java).apply {
+            publications {
 
-            register<MavenPublication>("aar") {
-                groupId = "com.martini.growing"
-                artifactId = joinedLibraryName
-                version = "1.0"
+                val libraryName = project.libraryName
+
+                register<MavenPublication>("aar") {
+                    groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
+                    artifactId = libraryName
+                    version = options.version
+                    artifact("$buildDir/outputs/aar/${project.name}-debug.aar")
+                }
+            }
+            repositories {
+                maven {
+                    name = "local"
+                    url = uri("${project.rootDir}/localMavenRepository")
+                }
+                tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
             }
         }
-        repositories {
-            maven {
-                name = "local"
-                url = uri("${project.rootDir}/localMavenRepository")
+    }
+}
+
+internal fun Project.applyProjectDependencies() {
+    val options = extensions.getByType(CommonAndroidLibraryExtension::class.java)
+
+    afterEvaluate {
+        val useAARForDevBuild = localProperties["useAARForDevBuild"] == "true"
+        val devModules = localProperties["devModules"]?.toString()?.split(" ") ?: emptyList()
+
+        dependencies {
+            for (dependencyMap in options.dependencies) {
+
+                val dependency = dependencyMap.key.libraryName
+                val dependencyVersion = dependencyMap.value
+
+                if (useAARForDevBuild && devModules.contains(dependency).not()) {
+                    val repoAndGroupId = "../$MAVEN_REPOSITORY_FOLDER/$PUBLISHING_FOLDER"
+                    val aarFile = files("$repoAndGroupId/$dependency/$dependencyVersion/$dependency-$dependencyVersion.aar")
+                    println("Michael Jackson: $aarFile")
+                    add("implementation", aarFile)
+                } else {
+                    add("implementation", project(dependency))
+                }
             }
-            tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
         }
     }
 }
@@ -94,10 +143,13 @@ internal fun Project.configureRelease() {
 }
 
 internal fun Project.configureAndroidLibrary() {
+    extensions.create("commonAndroidLibrary", CommonAndroidLibraryExtension::class.java)
+
     configureJavaVersion()
     configureKotlinVersion()
     configurePackaging()
     configureRelease()
     configureDefaultConfig()
     configurePublishing()
+    applyProjectDependencies()
 }
