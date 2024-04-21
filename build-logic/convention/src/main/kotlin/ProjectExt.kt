@@ -123,7 +123,7 @@ internal fun Project.applyProjectDependencies() {
 
                 if (useAARForDevBuild && isNotInDevMod) {
                     val library = dependency.libraryName
-                    val repoAndGroupId = "../$MAVEN_REPOSITORY_FOLDER/$PUBLISHING_FOLDER"
+                    val repoAndGroupId = "${project.rootDir}/$MAVEN_REPOSITORY_FOLDER/$PUBLISHING_FOLDER"
                     val aarFile = files("$repoAndGroupId/$library/$dependencyVersion/$library-$dependencyVersion.aar")
                     add("implementation", aarFile)
                 } else {

@@ -36,6 +36,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.espresso)
+}
 
-    implementation(project(":libraries:featuretoggle:api"))
+commonAndroidLibrary {
+    dependencies = mapOf(
+        ":libraries:featuretoggle:api" to "1.0"
+    )
 }
