@@ -4,6 +4,7 @@ plugins {
         alias(kotlin.android)
         alias(compose.library)
         alias(common.android.library)
+        alias(github.publishing)
     }
 }
 
