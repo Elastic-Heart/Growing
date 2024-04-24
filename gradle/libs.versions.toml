@@ -77,6 +77,7 @@ compose-library = { id = "compose.plugin", version = "unspecified" }
 common-android-library = { id = "common.android.library.plugin", version = "unspecified" }
 common-android-application = { id = "common.android.application.plugin", version = "unspecified" }
 read-properties-plugin = { id = "read.properties.plugin", version = "unspecified" }
+github-publishing = { id = "github.publishing", version = "unspecified" }
 
 [bundles]
 koin = ["koin-bom", "koin-android", "koin-core", "koin-compose"]

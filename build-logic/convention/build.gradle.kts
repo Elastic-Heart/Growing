@@ -23,6 +23,10 @@ gradlePlugin {
             id = "common.android.application.plugin"
             implementationClass = "CommonApplicationPlugin"
         }
+        register("githubPublishing") {
+            id = "github.publishing"
+            implementationClass = "GithubPublishing"
+        }
         register("readPropertiesPlugin") {
             id = "read.properties.plugin"
             implementationClass = "ReadPropertiesPlugin"
