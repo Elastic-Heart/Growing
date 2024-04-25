@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 rootProject.name = "Growing"
 
 include(":app")
-includeIfEnabled(":feature:Second")
+includeIfEnabled(":feature:second")
 includeIfEnabled(":feature:third")
 includeIfEnabled(":libraries:designsystem")
 includeIfEnabled(":libraries:featuretoggle:impl")
