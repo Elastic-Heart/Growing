@@ -26,8 +26,12 @@
             <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/second" />
+            <option value="$PROJECT_DIR$/feature/third" />
             <option value="$PROJECT_DIR$/libraries" />
             <option value="$PROJECT_DIR$/libraries/designsystem" />
+            <option value="$PROJECT_DIR$/libraries/featuretoggle" />
+            <option value="$PROJECT_DIR$/libraries/featuretoggle/api" />
+            <option value="$PROJECT_DIR$/libraries/featuretoggle/impl" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
