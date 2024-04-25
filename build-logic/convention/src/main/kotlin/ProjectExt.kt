@@ -11,6 +11,7 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
@@ -110,9 +111,6 @@ internal fun Project.configurePublishing() {
                     url = uri("${project.rootDir}/localMavenRepository")
                 }
 
-                tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
-                tasks.named("publishAarPublicationToGithubPackagesRepository").dependsOn("assembleRelease")
-
                 maven {
                     name = "GithubPackages"
                     url = uri("https://maven.pkg.github.com/elastic-heart/growing")
@@ -121,6 +119,9 @@ internal fun Project.configurePublishing() {
                         password = System.getenv("GITHUB_TOKEN")
                     }
                 }
+
+                tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
+                tasks.named("publishGithubReleasePublicationToGithubPackagesRepository").dependsOn("assembleRelease")
             }
         }
     }
