@@ -109,7 +109,9 @@ internal fun Project.configurePublishing() {
                     name = "local"
                     url = uri("${project.rootDir}/localMavenRepository")
                 }
+
                 tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
+                tasks.named("publishAarPublicationToGithubPackagesRepository").dependsOn("assembleRelease")
 
                 maven {
                     name = "GithubPackages"
