@@ -28,5 +28,7 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Build packages
+        run: ./gradlew build
       - name: Publish packages
         run: ./gradlew publish
