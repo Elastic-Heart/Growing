@@ -1,8 +1,6 @@
 import BuildLogicConstants.COMPILE_SDK
 import BuildLogicConstants.JAVA_VERSION
-import BuildLogicConstants.MAVEN_REPOSITORY_FOLDER
 import BuildLogicConstants.MINIMUM_SDK
-import BuildLogicConstants.PUBLISHING_FOLDER
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Project
@@ -11,9 +9,7 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -143,10 +139,8 @@ internal fun Project.applyProjectDependencies() {
                 val isNotInDevMod = devModules.contains(dependencyMap.key).not()
 
                 if (useAARForDevBuild && isNotInDevMod) {
-                    val library = dependency.libraryName
-                    val repoAndGroupId = "${project.rootDir}/$MAVEN_REPOSITORY_FOLDER/$PUBLISHING_FOLDER"
-                    val aarFile = files("$repoAndGroupId/$library/$dependencyVersion/$library-$dependencyVersion.aar")
-                    add("implementation", aarFile)
+                    val path = "${BuildLogicConstants.PUBLISHING_GROUP_ID}:${dependency.libraryName}:$dependencyVersion"
+                    add("implementation", path)
                 } else {
                     add("implementation", project(dependency))
                 }

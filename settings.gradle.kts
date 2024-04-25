@@ -9,6 +9,8 @@ val properties = Properties().apply {
 }
 val useAARForDevBuild = properties["useAARForDevBuild"] == "true"
 val devModules = properties["devModules"]?.toString()?.split(" ").orEmpty()
+val actor = properties["githubActor"]?.toString()
+val token = properties["githubToken"]?.toString()
 
 pluginManagement {
     includeBuild("build-logic")
@@ -24,6 +26,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            name = "GithubPackages"
+            url = uri("https://maven.pkg.github.com/elastic-heart/growing")
+            credentials {
+                username = actor
+                password = token
+            }
+        }
     }
 }
 
