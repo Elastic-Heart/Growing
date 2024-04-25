@@ -12,6 +12,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -84,8 +85,8 @@ internal fun Project.configurePublishing() {
 
     afterEvaluate {
         extensions.getByType(PublishingExtension::class.java).apply {
-            publications {
 
+            publications {
                 val libraryName = project.libraryName
 
                 register<MavenPublication>("aar") {
@@ -94,6 +95,14 @@ internal fun Project.configurePublishing() {
                     version = options.version
                     artifact("$buildDir/outputs/aar/${project.name}-debug.aar")
                 }
+
+                register<MavenPublication>("githubRelease") {
+                    groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
+                    artifactId = project.name.libraryName
+                    version = options.version
+
+                    from(components["release"])
+                }
             }
             repositories {
                 maven {
@@ -101,6 +110,15 @@ internal fun Project.configurePublishing() {
                     url = uri("${project.rootDir}/localMavenRepository")
                 }
                 tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
+
+                maven {
+                    name = "GithubPackages"
+                    url = uri("https://maven.pkg.github.com/elastic-heart/growing")
+                    credentials {
+                        username = System.getenv("GITHUB_ACTOR")
+                        password = System.getenv("GITHUB_TOKEN")
+                    }
+                }
             }
         }
     }

@@ -20,6 +20,16 @@ jobs:
           DATA: ${{secrets.GOOGLE_SERVICES_JSON}}
         run: echo $DATA | base64 -di > app/google-services.json
 
+      - name: Cache Gradle wrapper
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -28,7 +38,5 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build packages
-        run: ./gradlew build
       - name: Publish packages
-        run: ./gradlew publish
+        run: ./gradlew publishGithubReleasePublicationToGithubPackagesRepository --no-daemon
