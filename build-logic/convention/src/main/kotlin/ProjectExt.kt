@@ -102,7 +102,7 @@ internal fun Project.configurePublishing() {
                     artifactId = project.name.libraryName
                     version = options.version
 
-                    from(components["release"])
+                    artifact("$buildDir/outputs/aar/${project.name}-release.aar")
                 }
             }
             repositories {

@@ -40,3 +40,6 @@ jobs:
         run: chmod +x gradlew
       - name: Publish packages
         run: ./gradlew publishGithubReleasePublicationToGithubPackagesRepository --no-daemon
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
