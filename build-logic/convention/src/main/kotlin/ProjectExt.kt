@@ -99,7 +99,7 @@ internal fun Project.configurePublishing() {
 
                 register<MavenPublication>("githubRelease") {
                     groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
-                    artifactId = project.name.libraryName
+                    artifactId = libraryName
                     version = options.version
 
                     artifact("$buildDir/outputs/aar/${project.name}-release.aar")
