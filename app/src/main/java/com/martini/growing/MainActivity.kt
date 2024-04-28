@@ -15,13 +15,11 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -39,6 +37,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.martini.designsystem.components.buttons.GrowingButton
+import com.martini.designsystem.components.buttons.GrowingTextButton
 import com.martini.designsystem.components.snackbar.GrowingSnackBarHost
 import com.martini.designsystem.theme.GrowingTheme
 import com.martini.growing.second.posts.PostsScreen
@@ -124,14 +124,14 @@ fun Home(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { onGoToSecondClicked() }) {
+            GrowingButton(onClick = { onGoToSecondClicked() }) {
                 Text(text = "Second screen")
             }
-            Button(onClick = { onGoToThirdClicked() }) {
+            GrowingButton(onClick = { onGoToThirdClicked() }) {
                 Text(text = "Third screen")
             }
             AnimatedVisibility(visible = showSnackBarEnabled) {
-                TextButton(onClick = mainViewModel::showSnackBar) {
+                GrowingTextButton(onClick = mainViewModel::showSnackBar) {
                     Text(text = "Show snackbar")
                 }
             }

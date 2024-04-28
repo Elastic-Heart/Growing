@@ -8,13 +8,16 @@ import androidx.compose.runtime.ReadOnlyComposable
 @Composable
 fun GrowingTheme(
     typography: GrowingTypography = GrowingTypography,
+    colors: GrowingColors = GrowingColors,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
-        LocalTypography provides typography
+        LocalTypography provides typography,
+        LocalColors provides colors
     ) {
         MaterialTheme(
-            typography = typography.toMaterial3Typography()
+            typography = typography.toMaterial3Typography(),
+            colorScheme = colors.toMaterial3Colors()
         ) {
             content()
         }
@@ -26,4 +29,8 @@ object GrowingTheme {
     @Composable
     @ReadOnlyComposable
     get() = LocalTypography.current
+    val colors: GrowingColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColors.current
 }
