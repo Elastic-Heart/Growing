@@ -89,14 +89,14 @@ internal fun Project.configurePublishing() {
                 register<MavenPublication>("aar") {
                     groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
                     artifactId = libraryName
-                    version = options.version
+                    version = options.projectVersion
                     artifact("$buildDir/outputs/aar/${project.name}-debug.aar")
                 }
 
                 register<MavenPublication>("githubRelease") {
                     groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
                     artifactId = libraryName
-                    version = options.version
+                    version = options.projectVersion
 
                     artifact("$buildDir/outputs/aar/${project.name}-release.aar")
                 }
@@ -131,7 +131,7 @@ internal fun Project.applyProjectDependencies() {
         val devModules = localProperties["devModules"]?.toString()?.split(" ") ?: emptyList()
 
         dependencies {
-            for (dependencyMap in options.dependencies) {
+            for (dependencyMap in options.projectDependencies) {
 
                 val dependency = dependencyMap.key
                 val dependencyVersion = dependencyMap.value

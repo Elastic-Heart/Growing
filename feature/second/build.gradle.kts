@@ -13,8 +13,8 @@ android {
 }
 
 commonAndroidLibrary {
-    dependencies = mapOf(
+    projectDependencies = mapOf(
         ":libraries:designsystem" to "1.0"
     )
-    version = "1.0"
+    projectVersion = "0.0.2"
 }

@@ -39,7 +39,8 @@ dependencies {
 }
 
 commonAndroidLibrary {
-    dependencies = mapOf(
+    projectDependencies = mapOf(
         ":libraries:featuretoggle:api" to "1.0"
     )
+    projectVersion = "0.0.1"
 }
