@@ -39,11 +39,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.martini.growing.second.SecondHome
+import com.martini.designsystem.components.snackbar.GrowingSnackBarHost
+import com.martini.growing.second.posts.PostsScreen
 import com.martini.growing.state.MainUiState
 import com.martini.growing.third.ThirdHome
 import com.martini.growing.ui.theme.GrowingTheme
-import com.martini.designsystem.components.snackbar.GrowingSnackBarHost
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -95,7 +95,7 @@ fun GrowingNavigation(
                     onGoToThirdClicked = ::onGoToThirdClicked
                 )
             }
-            composable("SecondHome") { SecondHome() }
+            composable("SecondHome") { PostsScreen() }
             composable("ThirdHome") { ThirdHome() }
         }
     }

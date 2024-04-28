@@ -1,5 +1,8 @@
 import java.util.Properties
 
+include(":libraries:networking")
+
+
 val propertiesFile = File(rootProject.projectDir, "local.properties")
 if (propertiesFile.exists().not()) {
     propertiesFile.createNewFile()
@@ -43,6 +46,7 @@ include(":app")
 includeIfEnabled(":feature:second")
 includeIfEnabled(":feature:third")
 includeIfEnabled(":libraries:designsystem")
+includeIfEnabled(":libraries:networking")
 includeIfEnabled(":libraries:featuretoggle:impl")
 includeIfEnabled(":libraries:featuretoggle:api")
 

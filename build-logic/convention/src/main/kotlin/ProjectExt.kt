@@ -1,6 +1,7 @@
 import BuildLogicConstants.COMPILE_SDK
 import BuildLogicConstants.JAVA_VERSION
 import BuildLogicConstants.MINIMUM_SDK
+import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Project
@@ -120,6 +121,42 @@ internal fun Project.configurePublishing() {
                 tasks.named("publishGithubReleasePublicationToGithubPackagesRepository").dependsOn("assembleRelease")
             }
         }
+    }
+}
+
+internal fun Project.configureCompose(
+    extension: CommonExtension<*,*,*,*,*>
+) {
+    extension.apply {
+        buildFeatures {
+            compose = true
+        }
+        composeOptions {
+            kotlinCompilerExtensionVersion = libs.findVersion("kotlinComposeCompiler").get().toString()
+        }
+    }
+}
+
+internal fun Project.applyCommonAndroidDependencies() {
+    dependencies {
+        implementation(libs.findLibrary("androidx-ktx").get())
+        implementation(libs.findLibrary("androidx-lifecycle-runtime-ktx").get())
+        implementation(libs.findBundle("ktor").get())
+        implementation(libs.findLibrary("androidx-compose-activity").get())
+        val composeBom = platform(libs.findLibrary("androidx-compose-bom").get())
+        implementation(composeBom)
+        implementation(libs.findLibrary("androidx-compose-ui").get())
+        implementation(libs.findLibrary("androidx-compose-ui-graphics").get())
+        implementation(libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+        implementation(libs.findLibrary("androidx-compose-material").get())
+        implementation(libs.findLibrary("androidx-navigation-compose").get())
+        implementation(libs.findLibrary("androidx-lifecycle-runtime-compose").get())
+        testImplementation(libs.findLibrary("junit").get())
+        testImplementation(libs.findLibrary("androidx-test-core").get())
+        testImplementation(libs.findLibrary("io-mockk").get())
+        androidTestImplementation(composeBom)
+        androidTestImplementation(libs.findLibrary("androidx-test-junit").get())
+        androidTestImplementation(libs.findLibrary("androidx-test-espresso").get())
     }
 }
 

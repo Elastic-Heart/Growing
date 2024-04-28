@@ -40,12 +40,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlinComposeCompiler.get()
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -57,14 +52,6 @@ dependencies {
     with(libs) {
         implementation(androidx.ktx)
         implementation(androidx.lifecycle.runtime.ktx)
-        implementation(androidx.compose.activity)
-        implementation(platform(androidx.compose.bom))
-        implementation(androidx.compose.ui)
-        implementation(androidx.compose.ui.graphics)
-        implementation(androidx.compose.ui.tooling.preview)
-        implementation(androidx.compose.material)
-        implementation(androidx.navigation.compose)
-        implementation(androidx.lifecycle.runtime.compose)
         implementation(libs.bundles.koin)
         implementation(platform(libs.firebase.bom))
         implementation(libs.bundles.firebase)

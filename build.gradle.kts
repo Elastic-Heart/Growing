@@ -11,5 +11,6 @@ plugins {
         alias(com.google.firebase.crashlytics) apply false
         alias(read.properties.plugin) apply false
         alias(github.publishing) apply false
+        alias(kotlin.serialization) apply false
     }
 }

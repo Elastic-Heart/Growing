@@ -22,6 +22,7 @@ mockkVersion = "1.13.3"
 googleServicesVersion = "4.4.1"
 firebaseBom = "32.8.1"
 crashlyticsPlugin = "2.9.9"
+kotlinxSerialization = "1.6.3"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -42,7 +43,8 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNav" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
@@ -52,6 +54,8 @@ koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidXTestVersion" }
 io-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+org-jetbrains-kotlinx-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
@@ -67,6 +71,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 #Firebase/Google
 com-google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion"}
@@ -82,3 +87,5 @@ github-publishing = { id = "github.publishing", version = "unspecified" }
 [bundles]
 koin = ["koin-bom", "koin-android", "koin-core", "koin-compose"]
 firebase = ["firebase-analytics", "firebase-config", "firebase-crashlytics"]
+ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-client-negotiation", "ktor-client-serialization"]
+kotlinx-serialization = ["org-jetbrains-kotlinx-serialization", "org-jetbrains-kotlinx-serialization-json"]

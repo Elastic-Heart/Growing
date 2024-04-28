@@ -1,4 +1,5 @@
 import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.provider.Provider
@@ -6,6 +7,11 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 internal fun DependencyHandlerScope.implementation(library: Provider<MinimalExternalModuleDependency>) {
     add("implementation", library)
+}
+
+@JvmName("bundleImplementation")
+internal fun DependencyHandlerScope.implementation(bundle: Provider<ExternalModuleDependencyBundle>) {
+    add("implementation", bundle)
 }
 
 internal fun DependencyHandlerScope.implementation(dependency: Dependency) {
