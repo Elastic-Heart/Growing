@@ -19,18 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import com.martini.designsystem.theme.GrowingTheme
 import com.martini.growing.networking.rememberNetworking
 import com.martini.growing.second.posts.data.PostModel
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 
-sealed interface PostState {
+internal sealed interface PostState {
     data object Idle : PostState
     data object Loading : PostState
 
     @Immutable
-
     data class Loaded(
         val posts: List<PostModel>
     ) : PostState
@@ -65,7 +64,9 @@ internal fun PostList(
 ) {
     Scaffold {
         LazyColumn(
-            modifier = Modifier.padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it),
             verticalArrangement = Arrangement.Center
         ) {
             when (state) {
@@ -100,10 +101,15 @@ internal fun PostList(
                             headlineContent = {
                                 Text(
                                     text = post.title,
-                                    fontWeight = FontWeight.Bold
+                                    style = GrowingTheme.typography.h4
                                 )
                             },
-                            supportingContent = { Text(text = post.body) }
+                            supportingContent = {
+                                Text(
+                                    text = post.body,
+                                    style = GrowingTheme.typography.smallCaption
+                                )
+                            }
                         )
                     }
                 }

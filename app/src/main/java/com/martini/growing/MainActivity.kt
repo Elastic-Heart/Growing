@@ -40,10 +40,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.martini.designsystem.components.snackbar.GrowingSnackBarHost
+import com.martini.designsystem.theme.GrowingTheme
 import com.martini.growing.second.posts.PostsScreen
 import com.martini.growing.state.MainUiState
 import com.martini.growing.third.ThirdHome
-import com.martini.growing.ui.theme.GrowingTheme
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -79,24 +79,28 @@ fun GrowingNavigation(
     }
 
     AnimatedVisibility(visible = uiState is MainUiState.Loading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
+        GrowingTheme {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
     }
 
     AnimatedVisibility(visible = uiState !is MainUiState.Loading) {
-        NavHost(navController = navController, startDestination = "Home") {
-            composable("Home") {
-                Home(
-                    onGoToSecondClicked = ::onGoToSecondClicked,
-                    onGoToThirdClicked = ::onGoToThirdClicked
-                )
+        GrowingTheme {
+            NavHost(navController = navController, startDestination = "Home") {
+                composable("Home") {
+                    Home(
+                        onGoToSecondClicked = ::onGoToSecondClicked,
+                        onGoToThirdClicked = ::onGoToThirdClicked
+                    )
+                }
+                composable("SecondHome") { PostsScreen() }
+                composable("ThirdHome") { ThirdHome() }
             }
-            composable("SecondHome") { PostsScreen() }
-            composable("ThirdHome") { ThirdHome() }
         }
     }
 }
