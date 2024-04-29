@@ -33,7 +33,7 @@ dependencies {
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:designsystem" to projectVersion,
-        ":libraries:networking" to projectVersion
+        ":libraries:designsystem" to libs.versions.growingVersion.get(),
+        ":libraries:networking" to libs.versions.growingVersion.get()
     )
 }

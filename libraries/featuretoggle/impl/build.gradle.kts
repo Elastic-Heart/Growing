@@ -41,6 +41,6 @@ dependencies {
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:featuretoggle:api" to projectVersion
+        ":libraries:featuretoggle:api" to libs.versions.growingVersion.get()
     )
 }

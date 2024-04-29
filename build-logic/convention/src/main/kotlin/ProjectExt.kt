@@ -79,47 +79,50 @@ internal val Project.localProperties: Properties
     }
 
 internal fun Project.configurePublishing() {
-    val options = extensions.getByType(CommonAndroidLibraryExtension::class.java)
+    extensions.getByType(PublishingExtension::class.java).apply {
 
-    afterEvaluate {
-        extensions.getByType(PublishingExtension::class.java).apply {
+        publications {
+            val libraryName = project.libraryName
 
-            publications {
-                val libraryName = project.libraryName
+            val growingVersion = libs.findVersion("growingVersion").get().toString()
 
-                register<MavenPublication>("aar") {
-                    groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
-                    artifactId = libraryName
-                    version = options.projectVersion
+            register<MavenPublication>("aar") {
+                groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
+                artifactId = libraryName
+                version = growingVersion
+
+                afterEvaluate {
                     artifact("$buildDir/outputs/aar/${project.name}-debug.aar")
                 }
+            }
 
-                register<MavenPublication>("githubRelease") {
-                    groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
-                    artifactId = libraryName
-                    version = options.projectVersion
+            register<MavenPublication>("githubRelease") {
+                groupId = BuildLogicConstants.PUBLISHING_GROUP_ID
+                artifactId = libraryName
+                version = growingVersion
 
+                afterEvaluate {
                     artifact("$buildDir/outputs/aar/${project.name}-release.aar")
                 }
             }
-            repositories {
-                maven {
-                    name = "local"
-                    url = uri("${project.rootDir}/localMavenRepository")
-                }
-
-                maven {
-                    name = "GithubPackages"
-                    url = uri("https://maven.pkg.github.com/elastic-heart/growing")
-                    credentials {
-                        username = System.getenv("GITHUB_ACTOR")
-                        password = System.getenv("GITHUB_TOKEN")
-                    }
-                }
-
-                tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
-                tasks.named("publishGithubReleasePublicationToGithubPackagesRepository").dependsOn("assembleRelease")
+        }
+        repositories {
+            maven {
+                name = "local"
+                url = uri("${project.rootDir}/localMavenRepository")
             }
+
+            maven {
+                name = "GithubPackages"
+                url = uri("https://maven.pkg.github.com/elastic-heart/growing")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+
+            tasks.named("publishAarPublicationToLocalRepository").dependsOn("assembleDebug")
+            tasks.named("publishGithubReleasePublicationToGithubPackagesRepository").dependsOn("assembleRelease")
         }
     }
 }

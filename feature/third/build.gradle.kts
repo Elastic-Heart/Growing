@@ -27,6 +27,6 @@ android {
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:designsystem" to projectVersion
+        ":libraries:designsystem" to libs.versions.growingVersion.get()
     )
 }
