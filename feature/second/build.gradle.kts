@@ -11,6 +11,16 @@ plugins {
 
 android {
     namespace = "com.martini.growing.second"
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
 }
 
 dependencies {
@@ -19,7 +29,7 @@ dependencies {
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:designsystem" to "1.0",
-        ":libraries:networking" to "1.0"
+        ":libraries:designsystem" to projectVersion,
+        ":libraries:networking" to projectVersion
     )
 }

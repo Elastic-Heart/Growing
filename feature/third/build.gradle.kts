@@ -9,10 +9,20 @@ plugins {
 
 android {
     namespace = "com.martini.growing.third"
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
 }
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:designsystem" to "1.0"
+        ":libraries:designsystem" to projectVersion
     )
 }

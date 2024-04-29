@@ -67,10 +67,10 @@ dependencies {
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:featuretoggle:impl" to "1.0",
-        ":libraries:featuretoggle:api" to "1.0",
-        ":feature:second" to "0.0.1",
-        ":feature:third" to "1.0",
-        ":libraries:designsystem" to "1.0",
+        ":libraries:featuretoggle:impl" to projectVersion,
+        ":libraries:featuretoggle:api" to projectVersion,
+        ":feature:second" to projectVersion,
+        ":feature:third" to projectVersion,
+        ":libraries:designsystem" to projectVersion,
     )
 }

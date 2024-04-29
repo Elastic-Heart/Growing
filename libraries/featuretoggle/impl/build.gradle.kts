@@ -18,6 +18,7 @@ android {
 
     buildTypes {
         release {
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -40,6 +41,6 @@ dependencies {
 
 commonAndroidLibrary {
     projectDependencies = mapOf(
-        ":libraries:featuretoggle:api" to "1.0"
+        ":libraries:featuretoggle:api" to projectVersion
     )
 }
