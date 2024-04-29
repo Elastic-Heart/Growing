@@ -1,4 +1,4 @@
 open class CommonAndroidLibraryExtension {
-    var projectVersion = BuildLogicConstants.PUBLISHING_VERSION
+    val projectVersion = "1.0.2"
     var projectDependencies: Map<String, String> = mapOf()
 }

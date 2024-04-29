@@ -42,7 +42,3 @@ dependencies {
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.espresso)
 }
-
-commonAndroidLibrary {
-    projectVersion = "1.0.1"
-}

@@ -32,7 +32,3 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.bundles.kotlinx.serialization)
 }
-
-commonAndroidLibrary {
-    projectVersion = "1.0.1"
-}

@@ -22,5 +22,4 @@ commonAndroidLibrary {
         ":libraries:designsystem" to "1.0",
         ":libraries:networking" to "1.0"
     )
-    projectVersion = "1.0.1"
 }
