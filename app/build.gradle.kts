@@ -72,5 +72,6 @@ commonAndroidLibrary {
         ":feature:second" to projectVersion,
         ":feature:third" to projectVersion,
         ":libraries:designsystem" to projectVersion,
+        ":libraries:networking" to projectVersion
     )
 }

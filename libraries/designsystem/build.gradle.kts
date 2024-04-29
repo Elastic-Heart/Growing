@@ -9,7 +9,6 @@ android {
     namespace = "com.martini.designsystem"
 
     defaultConfig {
-
         consumerProguardFiles("consumer-rules.pro")
     }
 

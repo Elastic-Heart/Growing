@@ -12,6 +12,10 @@ plugins {
 android {
     namespace = "com.martini.growing.second"
 
+    defaultConfig {
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

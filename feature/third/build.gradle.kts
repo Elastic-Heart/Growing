@@ -10,6 +10,10 @@ plugins {
 android {
     namespace = "com.martini.growing.third"
 
+    defaultConfig {
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
