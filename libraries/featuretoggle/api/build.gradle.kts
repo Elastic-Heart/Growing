@@ -44,5 +44,5 @@ dependencies {
 }
 
 commonAndroidLibrary {
-    projectVersion = "0.0.1"
+    projectVersion = "1.0.1"
 }
