@@ -13,7 +13,7 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+app/release
 =======
 # Gradle files
 .gradle/
@@ -45,6 +45,7 @@ localMavenRepository
 # Keystore files
 *.jks
 *.keystore
+keystore.properties
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
