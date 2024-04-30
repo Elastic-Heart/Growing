@@ -18,6 +18,16 @@ jobs:
       env:
         DATA: ${{secrets.GOOGLE_SERVICES_JSON}}
       run: echo $DATA | base64 -di > app/google-services.json
+
+    - name: Load Keystore Properties
+      env:
+        DATA: ${{secrets.KEYSTORE_PROPERTIES}}
+      run: echo $DATA | base64 -di keystore.properties
+
+    - name: Load keystore key
+      env:
+        DATA: ${{secrets.KEYSTORE_KEY}}
+      run: echo $DATA | base64 -di app/keystore-release.jks
   
     - name: Cache Gradle wrapper
       uses: actions/cache@v4
