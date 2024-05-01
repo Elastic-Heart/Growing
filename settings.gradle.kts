@@ -1,8 +1,5 @@
 import java.util.Properties
 
-include(":libraries:networking")
-
-
 val propertiesFile = File(rootProject.projectDir, "local.properties")
 if (propertiesFile.exists().not()) {
     propertiesFile.createNewFile()
