@@ -1,16 +1,23 @@
 import java.util.Properties
 
-val propertiesFile = File(rootProject.projectDir, "local.properties")
-if (propertiesFile.exists().not()) {
-    propertiesFile.createNewFile()
-}
 val properties = Properties().apply {
-     load(propertiesFile.inputStream())
+    File(rootProject.projectDir, "local.properties").apply {
+        if (exists().not()) createNewFile()
+        load(inputStream())
+    }
 }
+
+val secrets = Properties().apply {
+    File(rootProject.projectDir, "secrets.properties").apply {
+        if (exists().not()) createNewFile()
+        load(inputStream())
+    }
+}
+
 val useAARForDevBuild = properties["useAARForDevBuild"] == "true"
 val devModules = properties["devModules"]?.toString()?.split(" ").orEmpty()
-val actor = properties["githubActor"]?.toString()
-val token = properties["githubToken"]?.toString()
+val actor = secrets["githubActor"]?.toString()
+val token = secrets["githubToken"]?.toString()
 
 pluginManagement {
     includeBuild("build-logic")
