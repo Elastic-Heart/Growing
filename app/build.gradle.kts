@@ -68,7 +68,6 @@ dependencies {
     with(libs) {
         implementation(androidx.ktx)
         implementation(androidx.lifecycle.runtime.ktx)
-        implementation(libs.bundles.koin)
         implementation(platform(libs.firebase.bom))
         implementation(libs.bundles.firebase)
         testImplementation(junit)

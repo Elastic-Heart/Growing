@@ -1,6 +1,6 @@
 [versions]
 #Project version
-growingVersion = "1.0.5"
+growingVersion = "1.0.6"
 growingVersionCode = "1"
 #Project version
 
@@ -11,7 +11,7 @@ junit = "4.13.2"
 test-ext-junit = "1.1.5"
 espresso = "3.5.1"
 compose-activity = "1.9.0"
-androidGradlePlugin = "8.1.4"
+androidGradlePlugin = "8.5.0"
 kotlin = "1.9.23"
 composeNav = "2.7.7"
 kotlinComposeCompiler = "1.5.12"
@@ -20,7 +20,7 @@ ktor = "2.3.10"
 coroutines = "1.8.10"
 appcompat = "1.6.1"
 material = "1.11.0"
-koin-bom = "3.5.6"
+koinBom = "3.5.6"
 lifecycleViewModelCompose = "2.7.0"
 androidXTestVersion = "1.5.0"
 mockkVersion = "1.13.3"
@@ -52,7 +52,7 @@ ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", 
 ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
@@ -90,7 +90,7 @@ read-properties-plugin = { id = "read.properties.plugin", version = "unspecified
 github-publishing = { id = "github.publishing", version = "unspecified" }
 
 [bundles]
-koin = ["koin-bom", "koin-android", "koin-core", "koin-compose"]
+koin = ["koin-android", "koin-core", "koin-compose"]
 firebase = ["firebase-analytics", "firebase-config", "firebase-crashlytics"]
 ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-client-negotiation", "ktor-client-serialization"]
 kotlinx-serialization = ["org-jetbrains-kotlinx-serialization", "org-jetbrains-kotlinx-serialization-json"]

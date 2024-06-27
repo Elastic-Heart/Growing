@@ -92,7 +92,7 @@ internal fun Project.configurePublishing() {
                 version = growingVersion
 
                 afterEvaluate {
-                    artifact("$buildDir/outputs/aar/${project.name}-debug.aar")
+                    artifact("${layout.buildDirectory}/outputs/aar/${project.name}-debug.aar")
                 }
             }
 
@@ -102,7 +102,7 @@ internal fun Project.configurePublishing() {
                 version = growingVersion
 
                 afterEvaluate {
-                    artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+                    artifact("${layout.buildDirectory}/outputs/aar/${project.name}-release.aar")
                 }
             }
         }
@@ -128,7 +128,7 @@ internal fun Project.configurePublishing() {
 }
 
 internal fun Project.configureCompose(
-    extension: CommonExtension<*,*,*,*,*>
+    extension: CommonExtension<*,*,*,*,*,*>
 ) {
     extension.apply {
         buildFeatures {
@@ -148,6 +148,12 @@ internal fun Project.applyCommonAndroidDependencies() {
         implementation(libs.findLibrary("androidx-compose-activity").get())
         val composeBom = platform(libs.findLibrary("androidx-compose-bom").get())
         implementation(composeBom)
+        val koinBom = platform(libs.findLibrary("koin-bom").get())
+        implementation(koinBom)
+        implementation(libs.findLibrary("koin-core").get())
+        implementation(libs.findLibrary("koin-android").get())
+        implementation(libs.findLibrary("koin-core").get())
+        implementation(libs.findLibrary("koin-compose").get())
         implementation(libs.findLibrary("androidx-compose-ui").get())
         implementation(libs.findLibrary("androidx-compose-ui-graphics").get())
         implementation(libs.findLibrary("androidx-compose-ui-tooling-preview").get())
