@@ -2,6 +2,7 @@
 plugins {
     with(libs.plugins) {
         alias(android.application) apply false
+        alias(compose.compiler) apply false
         alias(common.android.library) apply false
         alias(common.android.application) apply false
         alias(android.library) apply false

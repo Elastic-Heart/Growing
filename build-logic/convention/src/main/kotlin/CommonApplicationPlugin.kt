@@ -5,13 +5,17 @@ import org.gradle.kotlin.dsl.getByType
 
 class CommonApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
+        val composeCompilerPlugin = libs.findPlugin("compose-compiler").get().get()
+        pluginManager.apply(composeCompilerPlugin.pluginId)
         pluginManager.apply("maven-publish")
 
         extensions.create("commonAndroidLibrary", CommonAndroidLibraryExtension::class.java)
 
-        val libraryExtension = extensions.getByType<ApplicationExtension>()
+        val applicationExtension = extensions.getByType<ApplicationExtension>()
 
-        configureCompose(libraryExtension)
+        enableCompose(applicationExtension)
+        configureJavaVersion(applicationExtension)
+        configureKotlinVersion()
 
         applyCommonAndroidDependencies()
 

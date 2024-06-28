@@ -1,4 +1,5 @@
 import BuildLogicConstants.COMPILE_SDK
+import BuildLogicConstants.JAVA_JVM_TARGET
 import BuildLogicConstants.JAVA_VERSION
 import BuildLogicConstants.MINIMUM_SDK
 import com.android.build.api.dsl.CommonExtension
@@ -6,34 +7,38 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.io.File
 import java.util.Properties
 
 internal val Project.libs
     get() = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
-internal val Project.propertiesFile
-    get() = extensions.getByType<ExtraPropertiesExtension>()
-
-internal fun Project.configureJavaVersion() {
+internal fun Project.configureJavaVersion(
+    extension: CommonExtension<*, *, *, *, *, *>
+) {
     extensions.configure(JavaPluginExtension::class.java) {
         sourceCompatibility = JAVA_VERSION
         targetCompatibility = JAVA_VERSION
     }
+    extension.apply {
+        compileOptions {
+            sourceCompatibility = JAVA_VERSION
+            targetCompatibility = JAVA_VERSION
+        }
+    }
 }
 
 internal fun Project.configureKotlinVersion() {
-    tasks.withType(KotlinCompile::class.java) {
-        kotlinOptions {
-            jvmTarget = JAVA_VERSION.toString()
+    tasks.withType(KotlinJvmCompile::class.java) {
+        compilerOptions {
+            jvmTarget.set(JAVA_JVM_TARGET)
         }
     }
 }
@@ -127,15 +132,12 @@ internal fun Project.configurePublishing() {
     }
 }
 
-internal fun Project.configureCompose(
-    extension: CommonExtension<*,*,*,*,*,*>
+internal fun enableCompose(
+    extension: CommonExtension<*, *, *, *, *, *>
 ) {
     extension.apply {
         buildFeatures {
             compose = true
-        }
-        composeOptions {
-            kotlinCompilerExtensionVersion = libs.findVersion("kotlinComposeCompiler").get().toString()
         }
     }
 }
@@ -205,10 +207,12 @@ internal fun Project.configureRelease() {
     }
 }
 
-internal fun Project.configureAndroidLibrary() {
+internal fun Project.configureAndroidLibrary(
+    extension: CommonExtension<*, *, *, *, *, *>
+) {
     extensions.create("commonAndroidLibrary", CommonAndroidLibraryExtension::class.java)
 
-    configureJavaVersion()
+    configureJavaVersion(extension)
     configureKotlinVersion()
     configurePackaging()
     configureRelease()

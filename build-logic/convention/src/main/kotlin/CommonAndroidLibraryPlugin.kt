@@ -5,13 +5,16 @@ import org.gradle.kotlin.dsl.getByType
 
 class CommonAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
+        val libraryExtension = extensions.getByType<LibraryExtension>()
+        val composeCompilerPlugin = libs.findPlugin("compose-compiler").get().get()
+
+        pluginManager.apply(composeCompilerPlugin.pluginId)
         pluginManager.apply("maven-publish")
-        configureAndroidLibrary()
+
+        configureAndroidLibrary(libraryExtension)
 
         applyCommonAndroidDependencies()
 
-        val libraryExtension = extensions.getByType<LibraryExtension>()
-
-        configureCompose(libraryExtension)
+        enableCompose(libraryExtension)
     }
 }
