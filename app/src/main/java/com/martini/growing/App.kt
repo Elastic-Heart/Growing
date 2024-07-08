@@ -8,6 +8,13 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class App : Application() {
+
+    companion object {
+        init {
+            System.loadLibrary("growing")
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
 
