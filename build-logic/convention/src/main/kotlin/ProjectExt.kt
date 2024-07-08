@@ -20,10 +20,18 @@ import java.util.Properties
 internal val Project.libs
     get() = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
-internal fun Project.configureJavaVersion() {
+internal fun Project.configureJavaVersion(
+    extension: CommonExtension<*, *, *, *, *, *>
+) {
     extensions.configure(JavaPluginExtension::class.java) {
         sourceCompatibility = JAVA_VERSION
         targetCompatibility = JAVA_VERSION
+    }
+    extension.apply {
+        compileOptions {
+            sourceCompatibility = JAVA_VERSION
+            targetCompatibility = JAVA_VERSION
+        }
     }
 }
 
@@ -199,10 +207,12 @@ internal fun Project.configureRelease() {
     }
 }
 
-internal fun Project.configureAndroidLibrary() {
+internal fun Project.configureAndroidLibrary(
+    extension: CommonExtension<*, *, *, *, *, *>
+) {
     extensions.create("commonAndroidLibrary", CommonAndroidLibraryExtension::class.java)
 
-    configureJavaVersion()
+    configureJavaVersion(extension)
     configureKotlinVersion()
     configurePackaging()
     configureRelease()
