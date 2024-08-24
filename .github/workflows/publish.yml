@@ -18,7 +18,7 @@ jobs:
       - name: Load Google Services json
         env:
           DATA: ${{secrets.GOOGLE_SERVICES_JSON}}
-        run: echo $DATA | base64 -di > app/google-services.json
+        run: echo $DATA | base64 -di > app/src/prod/google-services.json
 
       - name: Load Keystore Properties
         env:

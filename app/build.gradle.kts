@@ -1,3 +1,4 @@
+import java.io.FileOutputStream
 import java.util.Properties
 
 plugins {
@@ -9,6 +10,20 @@ plugins {
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists().not()) {
+    keystorePropertiesFile.createNewFile()
+
+    val defaultProperties = Properties().apply {
+        setProperty("storeFile", "")
+        setProperty("storePassword", "")
+        setProperty("keyAlias", "")
+        setProperty("keyPassword", "")
+    }
+
+    FileOutputStream(keystorePropertiesFile).use { output ->
+        defaultProperties.store(output, "Default Keystore Properties")
+    }
+}
 val keystoreProperties = Properties()
 keystoreProperties.load(keystorePropertiesFile.inputStream())
 
@@ -52,6 +67,21 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    flavorDimensions += "version"
+    productFlavors {
+        create("demo") {
+            dimension = "version"
+            applicationIdSuffix = ".demo"
+            versionNameSuffix = "-demo"
+        }
+
+        create("prod") {
+            dimension = "version"
+            applicationIdSuffix = ".prod"
+            versionNameSuffix = "-prod"
         }
     }
 

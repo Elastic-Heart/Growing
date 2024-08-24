@@ -27,7 +27,7 @@ jobs:
     - name: Load keystore key
       env:
         DATA: ${{secrets.KEYSTORE_KEY}}
-      run: echo $DATA | base64 -di > app/keystore-release.jks
+      run: echo $DATA | base64 -di > app/src/prod/keystore-release.jks
   
     - name: Cache Gradle wrapper
       uses: actions/cache@v4
