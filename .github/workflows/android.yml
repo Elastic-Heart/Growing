@@ -51,4 +51,4 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Run tests
-      run: ./gradlew testDebug --no-daemon
+      run: ./gradlew testDemoDebugUnitTest --no-daemon
