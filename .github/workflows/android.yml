@@ -14,10 +14,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Create directory for Google Services json
+      run: mkdir -p app/src/demo
+
     - name: Load Google Services json
       env:
-        DATA: ${{secrets.GOOGLE_SERVICES_JSON}}
-      run: echo $DATA | base64 -di > app/google-services.json
+        DATA: ${{secrets.DEMO_GOOGLE_SERVICES_JSON}}
+      run: echo $DATA | base64 -di > app/src/demo/google-services.json
 
     - name: Load Keystore Properties
       env:
@@ -27,7 +30,7 @@ jobs:
     - name: Load keystore key
       env:
         DATA: ${{secrets.KEYSTORE_KEY}}
-      run: echo $DATA | base64 -di > app/src/prod/keystore-release.jks
+      run: echo $DATA | base64 -di > app/keystore-release.jks
   
     - name: Cache Gradle wrapper
       uses: actions/cache@v4
@@ -48,4 +51,4 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Run tests
-      run: ./gradlew testDebug --no-daemon
+      run: ./gradlew testDemoDebugUnitTest --no-daemon
