@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Create directory for Google Services json
+      run: mkdir -p app/src/demo
+
     - name: Load Google Services json
       env:
         DATA: ${{secrets.GOOGLE_SERVICES_JSON}}
