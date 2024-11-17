@@ -10,11 +10,6 @@ class ComposePlugin : Plugin<Project> {
 
         with(extension) {
             buildFeatures { compose = true }
-
-            composeOptions {
-                val composeCompilerVersion = libs.findVersion("kotlinComposeCompiler")
-                kotlinCompilerExtensionVersion = composeCompilerVersion.get().toString()
-            }
         }
 
         dependencies {

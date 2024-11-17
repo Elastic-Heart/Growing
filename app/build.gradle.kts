@@ -34,7 +34,8 @@ android {
     defaultConfig {
         applicationId = "com.martini.growing"
         minSdk = 26
-        targetSdk = 34
+        compileSdk = 35
+        targetSdk = 35
         versionCode = libs.versions.growingVersionCode.get().toInt()
         versionName = libs.versions.growingVersion.get()
 
