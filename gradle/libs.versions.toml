@@ -25,7 +25,6 @@ androidXTestVersion = "1.6.1"
 mockkVersion = "1.13.3"
 googleServicesVersion = "4.4.2"
 firebaseBom = "33.6.0"
-crashlyticsPlugin = "3.0.2"
 kotlinxSerialization = "1.6.3"
 
 [libraries]
@@ -62,8 +61,6 @@ org-jetbrains-kotlinx-serialization = { module = "org.jetbrains.kotlin:kotlin-se
 org-jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 #Dependencies for buildSrc
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -80,7 +77,6 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 
 #Firebase/Google
 com-google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion"}
-com-google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyticsPlugin" }
 
 #Custom plugins
 compose-library = { id = "compose.plugin", version = "unspecified" }
@@ -91,6 +87,6 @@ github-publishing = { id = "github.publishing", version = "unspecified" }
 
 [bundles]
 koin = ["koin-android", "koin-core", "koin-compose"]
-firebase = ["firebase-analytics", "firebase-config", "firebase-crashlytics"]
+firebase = ["firebase-config"]
 ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-client-negotiation", "ktor-client-serialization"]
 kotlinx-serialization = ["org-jetbrains-kotlinx-serialization", "org-jetbrains-kotlinx-serialization-json"]

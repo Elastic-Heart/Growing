@@ -9,7 +9,6 @@ plugins {
         alias(compose.library) apply false
         alias(kotlin.android) apply false
         alias(com.google.gms.services) apply false
-        alias(com.google.firebase.crashlytics) apply false
         alias(read.properties.plugin) apply false
         alias(github.publishing) apply false
         alias(kotlin.serialization) apply false
